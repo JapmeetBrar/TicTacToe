@@ -8,6 +8,7 @@
     grid-template-columns: repeat(3, 200px);
     grid-template-rows: repeat(3, 200px);
     gap: 0;
+    justify-content: center;
 }
 
 .block{

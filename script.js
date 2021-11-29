@@ -1,5 +1,5 @@
 const GameBoard = (function() {
-    let board = [["", "", ""], ["", "", ""], ["", "", ""]];
+    let board = [["0", "0", "0"], ["0", "0", "0"], ["0", "0", "0"]];
     
     return {
         board
@@ -36,9 +36,52 @@ const mainGame = (function(){
                 break;
             }
         }
-        GameBoard.board[row][currentSpot-size*row] = "1";
+        if (player1Move){
+            GameBoard.board[row][currentSpot-size*row] = "1";
+        } else{
+            GameBoard.board[row][currentSpot-size*row] = "-1";
+        }
+        
         DisplayController.writeToBoard(player, currentSpot);
+        _checkWin();
         player1Move = !player1Move;
+    }
+
+    const _checkWin = () => {
+        //CHECKING ROWS & COLUMNS
+        
+        let size = GameBoard.board.length;
+        for (let i = 0; i<size; i++){
+            let sumrow = 0;
+            let sumcolumn = 0;
+            for (let j=0; j<size; j++){
+                sumrow += parseInt(GameBoard.board[i][j]);
+                sumcolumn += parseInt(GameBoard.board[j][i]);
+            }
+            if (Math.abs(sumrow) === size || Math.abs(sumcolumn) === size){
+                console.log("WINNER");
+                return;
+            }
+        }
+
+        //CHECKING DIAGONALS
+        for (let i=0; i<size; i++){
+            for (let j=0; j<size; j++){
+                
+            }
+        }
+
+
+        //CHECKING DRAW
+        let draw = true;
+        for (let i = 0; i<size; i++){
+            if (GameBoard.board[i].includes('0')){
+                draw = false;
+            }
+        }
+        if (draw === true){
+            console.log("DRAW");
+        }
     }
 })();
 
