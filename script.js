@@ -12,21 +12,30 @@ const DisplayController = (function(){
         
         square.textContent = player.symbol;
     }
-    return {writeToBoard};
+
+    const announceResult = (player, draw) =>{
+        let div = document.querySelector('.outcome');
+        (draw)? div.textContent = "THE GAME WAS A DRAW!":div.textContent = "THE WINNER IS: " + player.name;
+    }
+    return {writeToBoard, announceResult};
 })();
 
 const mainGame = (function(){
     let squares = document.querySelectorAll('.block');
     let player1Move = true;
+    let playingGame = true;
 
-    squares.forEach((square)=>{
-        square.addEventListener('click', ()=>{
-            (player1Move)?_playMove(player1, square):_playMove(player2, square)
-        })
-    })
+    const startGame = () =>{
+        playingGame = true;
+        squares.forEach((square)=>{
+            square.addEventListener('click', ()=>{
+                (player1Move && playingGame)?_playMove(player1, square):_playMove(player2, square)
+            })
+        })        
+    }
 
     const _playMove = (player, square) => {
-        if (square.textContent !== "") return;
+        if (square.textContent !== "" || playingGame === false) return;
         let currentSpot = square.dataset.square;
         let size = GameBoard.board.length;
         let row;
@@ -43,11 +52,11 @@ const mainGame = (function(){
         }
         
         DisplayController.writeToBoard(player, currentSpot);
-        _checkWin();
+        _checkWin(player);
         player1Move = !player1Move;
     }
 
-    const _checkWin = () => {
+    const _checkWin = (player) => {
         //CHECKING ROWS & COLUMNS
         
         let size = GameBoard.board.length;
@@ -59,7 +68,8 @@ const mainGame = (function(){
                 sumcolumn += parseInt(GameBoard.board[j][i]);
             }
             if (Math.abs(sumrow) === size || Math.abs(sumcolumn) === size){
-                console.log("WINNER");
+                DisplayController.announceResult(player, false);
+                _stopGame();
                 return;
             }
         }
@@ -80,21 +90,30 @@ const mainGame = (function(){
             }
         }
         if (draw === true){
-            console.log("DRAW");
+            DisplayController.announceResult(player, true);
+            _stopGame();
         }
     }
+
+    const _stopGame = () =>{
+        playingGame = false;
+    }
+
+
+
+    return {startGame}
 })();
 
 const Player = (name, sign) =>{
-    const getName = () => console.log("Hi I am " + name);
-
     let symbol = sign;
 
     return{
-        getName,
+        name,
         symbol
     };
 }
 
 let player1 = Player('jap', 'X');
 let player2 = Player('john', 'O')
+
+mainGame.startGame();
