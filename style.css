@@ -5,8 +5,8 @@
 /* CREATING BOARD */
 .play-area{
     display: grid;
-    grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(3, 200px);
+    grid-template-columns: repeat(3, 25vh);
+    grid-template-rows: repeat(3, 25vh);
     gap: 0;
     justify-content: center;
 }

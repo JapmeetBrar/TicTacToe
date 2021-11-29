@@ -15,7 +15,7 @@ const DisplayController = (function(){
 
     const announceResult = (player, draw) =>{
         let div = document.querySelector('.outcome');
-        (draw)? div.textContent = "THE GAME WAS A DRAW!":div.textContent = "THE WINNER IS: " + player.name;
+        div.textContent = (draw)? "THE GAME WAS A DRAW!":`THE WINNER IS: ${player.name}`;
     }
     return {writeToBoard, announceResult};
 })();
@@ -57,30 +57,35 @@ const mainGame = (function(){
     }
 
     const _checkWin = (player) => {
-        //CHECKING ROWS & COLUMNS
-        
+        //CHECKING ROWS, COLUMNS, & DIAGONALS
+            // Does this by adding up values of gameboard array in all rows, columns, and diagonals
+            // value of 1 in array means 'X' is played at that index/square, value of -1 means 'O'
+            // value of 0 means nothing has been played in that index/square
+
         let size = GameBoard.board.length;
+        let sumdiagleft = 0;
+        let sumdiagright = 0;
         for (let i = 0; i<size; i++){
             let sumrow = 0;
             let sumcolumn = 0;
+             
+            sumdiagright += parseInt(GameBoard.board[i][i]);
+            sumdiagleft += parseInt(GameBoard.board[i][size-i-1]);
             for (let j=0; j<size; j++){
                 sumrow += parseInt(GameBoard.board[i][j]);
                 sumcolumn += parseInt(GameBoard.board[j][i]);
             }
-            if (Math.abs(sumrow) === size || Math.abs(sumcolumn) === size){
+
+            // if sum of any row column or diagonal === size of board, it means that many 'X's or 'O's
+            // have been lined up
+            if (Math.abs(sumrow) === size || Math.abs(sumcolumn) === size ||
+                Math.abs(sumdiagleft) === size || Math.abs(sumdiagright) === size){
+
                 DisplayController.announceResult(player, false);
                 _stopGame();
                 return;
             }
         }
-
-        //CHECKING DIAGONALS
-        for (let i=0; i<size; i++){
-            for (let j=0; j<size; j++){
-                
-            }
-        }
-
 
         //CHECKING DRAW
         let draw = true;
