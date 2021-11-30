@@ -29,6 +29,10 @@ const mainGame = (function(){
 
     let squares = document.querySelectorAll('.block');
     let restartbtn = document.querySelector('.restart');
+    let popUp = document.querySelector('.popUpWindow');
+    restartbtn.addEventListener('click', ()=>{
+        popUp.style.display = "flex";
+    })
 
     let player1Move = true;
     let playingGame = true;
