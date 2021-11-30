@@ -9,11 +9,18 @@ body{
     background-image: linear-gradient(to bottom left, );
 }
 
+button{
+    width: 20vmin;
+    height: 5vmin;
+    margin: 1vmin;
+    font-size: 3vmin;
+}
+
 /* CREATING BOARD */
 .play-area{
     display: grid;
-    grid-template-columns: repeat(3, 25vmin);
-    grid-template-rows: repeat(3, 25vmin);
+    grid-template-columns: repeat(3, 20vmin);
+    grid-template-rows: repeat(3, 20vmin);
     gap: 0;
     justify-content: center;
 }
