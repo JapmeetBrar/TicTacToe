@@ -127,6 +127,6 @@ const Player = (name, sign) =>{
 }
 
 let player1 = Player('jap', 'X');
-let player2 = Player('john', 'O')
+let player2 = Player('fathma', 'O')
 
 mainGame.startGame();
