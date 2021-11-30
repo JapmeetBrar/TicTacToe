@@ -15,7 +15,7 @@ body{
 .popUpWindow{
     display: none;
     flex-direction: column;
-    width: 50vw;
+    width: 30vw;
     height: 75vh;
     position: fixed;
     align-self: center;
