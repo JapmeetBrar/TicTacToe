@@ -11,14 +11,15 @@ const DisplayController = (function(){
     
     const writeToBoard = (player, position) => {
         let square = document.querySelector(`[data-square = "${position}"]`);
-        playerColor = (player.symbol === "X")? "blue": "red";
+        let playerColor = (player.symbol === "X")? "blue": "red";
         square.style.color = playerColor;
         square.textContent = player.symbol;
     }
 
     const announceResult = (player, draw) =>{
+        let playerColor = (player.symbol === "X")? "blue": "red";
         let div = document.querySelector('.outcome');
-        div.textContent = (draw)? "THE GAME WAS A DRAW!":`THE WINNER IS: ${player.name.toUpperCase()}`;
+        div.innerHTML = (draw)? "THE GAME WAS A DRAW!":`THE WINNER IS: <span class="${playerColor}">${player.name.toUpperCase()}</span>`;
     }
     return {writeToBoard, announceResult};
 })();

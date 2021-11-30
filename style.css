@@ -55,7 +55,7 @@ body{
 }
 
 .outcome{
-    font-size: 5em;
+    font-size: 9vmin;
     font-weight: bold;
     text-align: center;
     -webkit-animation: glow 1s ease-in-out infinite alternate;
@@ -63,8 +63,12 @@ body{
     animation: glow 1s ease-in-out infinite alternate;
 }
 
-.winner{
+.blue{
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #002ae6, 0 0 40px #002ae6, 0 0 50px #002ae6, 0 0 60px #002ae6, 0 0 70px #002ae6;
+}
+
+.red{
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000;
 }
 
 /* STYLE */
