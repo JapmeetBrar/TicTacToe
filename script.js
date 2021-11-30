@@ -7,21 +7,28 @@ const GameBoard = (function() {
 })();
 
 const DisplayController = (function(){
+
+    
     const writeToBoard = (player, position) => {
         let square = document.querySelector(`[data-square = "${position}"]`);
-        
+        playerColor = (player.symbol === "X")? "blue": "red";
+        square.style.color = playerColor;
         square.textContent = player.symbol;
     }
 
     const announceResult = (player, draw) =>{
         let div = document.querySelector('.outcome');
-        div.textContent = (draw)? "THE GAME WAS A DRAW!":`THE WINNER IS: ${player.name}`;
+        div.textContent = (draw)? "THE GAME WAS A DRAW!":`THE WINNER IS: ${player.name.toUpperCase()}`;
     }
     return {writeToBoard, announceResult};
 })();
 
 const mainGame = (function(){
+
+
     let squares = document.querySelectorAll('.block');
+    let restartbtn = document.querySelector('.restart');
+
     let player1Move = true;
     let playingGame = true;
 
@@ -33,6 +40,7 @@ const mainGame = (function(){
             })
         })        
     }
+
 
     const _playMove = (player, square) => {
         if (square.textContent !== "" || playingGame === false) return;
