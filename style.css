@@ -23,7 +23,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10em;
+    font-size: 25vmin;
     font-weight: bold;
     border-radius: 20px;
 }

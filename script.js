@@ -126,7 +126,7 @@ const Player = (name, sign) =>{
     };
 }
 
-let player1 = Player('jap', 'X');
-let player2 = Player('fathma', 'O')
+let player1 = Player('Candace Owens', 'X');
+let player2 = Player('Ben Shapiro', 'O')
 
 mainGame.startGame();
