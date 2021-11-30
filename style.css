@@ -58,17 +58,38 @@ body{
     font-size: 9vmin;
     font-weight: bold;
     text-align: center;
-    -webkit-animation: glow 1s ease-in-out infinite alternate;
-    -moz-animation: glow 1s ease-in-out infinite alternate;
-    animation: glow 1s ease-in-out infinite alternate;
+
 }
 
 .blue{
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #002ae6, 0 0 40px #002ae6, 0 0 50px #002ae6, 0 0 60px #002ae6, 0 0 70px #002ae6;
+    -webkit-animation: p1 .5s ease-in-out infinite alternate;
+    -moz-animation: p1 .5s ease-in-out infinite alternate;
+    animation: p1 .5s ease-in-out infinite alternate;
 }
 
 .red{
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000;
+    -webkit-animation: p2 .5s ease-in-out infinite alternate;
+    -moz-animation: p2 .5s ease-in-out infinite alternate;
+    animation: p2 .5s ease-in-out infinite alternate;
 }
 
+
+@-webkit-keyframes p1 {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #002ae6, 0 0 40px #002ae6, 0 0 50px #002ae6, 0 0 60px #002ae6, 0 0 70px #002ae6;
+    }
+    to {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #516ff5, 0 0 40px #516ff5, 0 0 50px #516ff5, 0 0 60px #516ff5, 0 0 70px #516ff5;
+    }
+}
+  
+
+@-webkit-keyframes p2 {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000;
+    }
+    to {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff5050, 0 0 40px #ff5050, 0 0 50px #ff5050, 0 0 60px #ff5050, 0 0 70px #ff5050;
+    }
+}
 /* STYLE */
