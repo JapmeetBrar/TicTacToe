@@ -1,3 +1,6 @@
+let player1;
+let player2;
+
 const GameBoard = (function() {
     let board = [["0", "0", "0"], ["0", "0", "0"], ["0", "0", "0"]];
     
@@ -28,17 +31,32 @@ const mainGame = (function(){
 
 
     let squares = document.querySelectorAll('.block');
-    let restartbtn = document.querySelector('.restart');
+    let startbtn = document.querySelector('.submit-btn');
     let popUp = document.querySelector('.popUpWindow');
-    restartbtn.addEventListener('click', ()=>{
-        popUp.style.display = "flex";
-    })
+
 
     let player1Move = true;
     let playingGame = true;
 
-    const startGame = () =>{
+    const settupGame = () =>{
+        popUp.style.display = "flex";
+        let p1name = document.querySelector('p1-name-input')
+        let p1symbol = document.querySelector('p1-symbol-input')
+        let p2name = document.querySelector('p2-name-input')
+        let p2symbol = document.querySelector('p2-symbol-input')
+
+        startbtn.addEventListener('click', ()=>{
+            player1 = Player(p1name, p1symbol);
+            player2 = Player(p2name, p2symbol);
+            startGame(player1, player2);
+            popUp.style.display = "none";
+        })
+
+    }
+
+    const startGame = (player1, player2) =>{
         playingGame = true;
+        console.log('START')
         squares.forEach((square)=>{
             square.addEventListener('click', ()=>{
                 (player1Move && playingGame)?_playMove(player1, square):_playMove(player2, square)
@@ -119,7 +137,7 @@ const mainGame = (function(){
 
 
 
-    return {startGame}
+    return {startGame, settupGame}
 })();
 
 const Player = (name, sign) =>{
@@ -131,7 +149,6 @@ const Player = (name, sign) =>{
     };
 }
 
-let player1 = Player('Candace Owens', 'X');
-let player2 = Player('Ben Shapiro', 'O')
 
-mainGame.startGame();
+
+mainGame.settupGame();
