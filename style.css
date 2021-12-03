@@ -9,16 +9,17 @@ body{
     flex-direction: column;
     height: 100vh;
 }
+
 /* CREATING POPUP WINDOW */
 
 .popUpWindow{
     display: none;
     flex-direction: column;
     max-width: 30vw;
-    height: 75vh;
+    height: 90vh;
     position: fixed;
     align-self: center;
-    margin-top: 10vh;
+    margin-top: 5vh;
     background-image: linear-gradient(0deg, #cc63cc, #3aa9b6);
     border: 4px solid #999;
     border-radius: 2vw;
@@ -79,6 +80,12 @@ strong{
     gap: 1vw;
 }
 
+.error{
+    margin-top: -1rem;
+    color: red;
+    font-weight: bold;
+}
+
 input{
     height: 3vw;
     font-size: 2vw;
@@ -106,7 +113,7 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25vmin;
+    font-size: 20vmin;
     font-weight: bold;
     border-radius: 20px;
 }
@@ -145,12 +152,14 @@ button{
 }
 
 .blue{
+    color: rgba(0, 0, 255, 0.747);
     -webkit-animation: p1 .5s ease-in-out infinite alternate;
     -moz-animation: p1 .5s ease-in-out infinite alternate;
     animation: p1 .5s ease-in-out infinite alternate;
 }
 
 .red{
+    color: rgba(255, 0, 0, 0.685);
     -webkit-animation: p2 .5s ease-in-out infinite alternate;
     -moz-animation: p2 .5s ease-in-out infinite alternate;
     animation: p2 .5s ease-in-out infinite alternate;

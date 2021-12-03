@@ -10,17 +10,15 @@ const GameBoard = (function() {
 })();
 
 const DisplayController = (function(){
-
-    
     const writeToBoard = (player, position) => {
         let square = document.querySelector(`[data-square = "${position}"]`);
-        let playerColor = (player.symbol === "X")? "blue": "red";
+        let playerColor = (player.priority)? "blue": "red";
         square.style.color = playerColor;
         square.textContent = player.symbol;
     }
 
     const announceResult = (player, draw) =>{
-        let playerColor = (player.symbol === "X")? "blue": "red";
+        let playerColor = (player.priority)? "blue": "red";
         let div = document.querySelector('.outcome');
         div.innerHTML = (draw)? "THE GAME WAS A DRAW!":`THE WINNER IS: <span class="${playerColor}">${player.name.toUpperCase()}</span>`;
     }
@@ -32,34 +30,73 @@ const mainGame = (function(){
 
     let squares = document.querySelectorAll('.block');
     let startbtn = document.querySelector('.submit-btn');
+    let restartbtn = document.querySelector('.restart');
     let popUp = document.querySelector('.popUpWindow');
-
-
     let player1Move = true;
     let playingGame = true;
 
+    restartbtn.addEventListener('click', ()=>{
+        let div = document.querySelector('.outcome');
+        GameBoard.board = [];
+        squares.forEach((square)=>{
+            square.textContent = "";
+        })
+        div.textContent = "";
+        player1 = null;
+        player2 = null;
+        player1Move = true;
+        for (let i = 0; i<3; i++){
+            let tempArray = [];
+            for (let j = 0; j<3; j++){
+                tempArray.push('0');
+            }
+            GameBoard.board.push(tempArray);
+        }
+        settupGame();
+    })
+
     const settupGame = () =>{
         popUp.style.display = "flex";
-        let p1name = document.querySelector('p1-name-input')
-        let p1symbol = document.querySelector('p1-symbol-input')
-        let p2name = document.querySelector('p2-name-input')
-        let p2symbol = document.querySelector('p2-symbol-input')
+        let p1name = document.querySelector('.p1-name-input')
+        let p1symbol = document.querySelector('.p1-symbol-input')
+        let p2name = document.querySelector('.p2-name-input')
+        let p2symbol = document.querySelector('.p2-symbol-input')
+        let p1symbolerror = document.querySelector('.error-p1-symbol')
+        let p2symbolerror = document.querySelector('.error-p2-symbol')
+
 
         startbtn.addEventListener('click', ()=>{
-            player1 = Player(p1name, p1symbol);
-            player2 = Player(p2name, p2symbol);
-            startGame(player1, player2);
-            popUp.style.display = "none";
+            if (p1symbol.value.length === 1 && p2symbol.value.length === 1 && p1name.value.length >=1 && p2name.value.length >=1){
+                p1symbolerror.textContent = "";
+                p2symbolerror.textContent = "";
+                player1 = Player(p1name.value, p1symbol.value, true);
+                player2 = Player(p2name.value, p2symbol.value, false);
+                startGame(player1, player2);
+                console.log({player1, player2})
+                popUp.style.display = "none";
+            }else if (p1name.value.length == 0){
+                p1name.placeholder = "Enter a Name";
+            }else if (p1symbol.value.length !== 1){
+                p1symbolerror.textContent = "ONE CHARACTER ONLY";
+            }else if (p2name.value.length == 0){
+                p2name.placeholder = "jjEnter a Name";
+            }
+            else if (p2symbol.value.length !== 1){
+                p2symbolerror.textContent = "ONE CHARACTER ONLY";
+            }
         })
 
     }
 
     const startGame = (player1, player2) =>{
         playingGame = true;
-        console.log('START')
         squares.forEach((square)=>{
             square.addEventListener('click', ()=>{
-                (player1Move && playingGame)?_playMove(player1, square):_playMove(player2, square)
+                if (player1Move && playingGame){
+                    _playMove(player1, square);
+                } else if (player1Move === false && playingGame){
+                    _playMove(player2, square);
+                }
             })
         })        
     }
@@ -137,15 +174,15 @@ const mainGame = (function(){
 
 
 
-    return {startGame, settupGame}
+    return {startGame, settupGame, player1Move, playingGame}
 })();
 
-const Player = (name, sign) =>{
+const Player = (name, sign, priority) =>{
     let symbol = sign;
-
     return{
         name,
-        symbol
+        symbol,
+        priority
     };
 }
 
