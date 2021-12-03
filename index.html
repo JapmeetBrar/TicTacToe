@@ -12,8 +12,15 @@
 
         <h1 class="popUpHeader">WELCOME TO <br><span class="tictactoe">TIC-TAC-TOE</span></h1>
         <div class="playerContainer">
+
+            <div class="field-size">
+                <strong>Board Size: </strong>
+                <input type="number" class="size" placeholder="Default: 3" value="3">
+            </div>
+
             <div class="player player-one">
                 <h2 class=player1-header>Player 1</h2>
+                
 
                 <div class="field-name">
                     <strong>Name: </strong>
@@ -47,17 +54,7 @@
     
     <div class="container">
         <button class="restart">RESTART!</button>
-        <div class="play-area">
-            <div id="block-1" data-square = "0" class="block top left"></div>
-            <div id="block-2" data-square = "1" class="block top"></div>
-            <div id="block-3" data-square = "2" class="block top right"></div>
-            <div id="block-4" data-square = "3" class="block left"></div>
-            <div id="block-5" data-square = "4" class="block"></div>
-            <div id="block-6" data-square = "5" class="block right"></div>
-            <div id="block-7" data-square = "6" class="block bottom left"></div>
-            <div id="block-8" data-square = "7" class="block bottom"></div>
-            <div id="block-9" data-square = "8" class="block bottom right"></div>
-        </div>
+        <div class="play-area"></div>
         <div class="outcome"></div>
     </div>
 

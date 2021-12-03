@@ -1,9 +1,7 @@
 let player1;
 let player2;
-
 const GameBoard = (function() {
-    let board = [["0", "0", "0"], ["0", "0", "0"], ["0", "0", "0"]];
-    
+    let board = [];
     return {
         board
     };
@@ -66,7 +64,43 @@ const mainGame = (function(){
 
 
         startbtn.addEventListener('click', ()=>{
-            if (p1symbol.value.length === 1 && p2symbol.value.length === 1 && p1name.value.length >=1 && p2name.value.length >=1){
+            if (p1symbol.value.length === 1 && p2symbol.value.length === 1 && 
+                p1name.value.length >=1 && p2name.value.length >=1 ) {
+
+                let size = document.querySelector('.size').value;
+                let playArea = document.querySelector('.play-area');
+                playArea.style.gridTemplateColumns = `repeat(${size}, ${60/size}vmin)`;
+                playArea.style.gridTemplateRows = `repeat(${size}, ${60/size}vmin)`;
+                let counter = 0;
+                GameBoard.board = [];
+                while (playArea.firstChild) {
+                    playArea.removeChild(playArea.firstChild);
+                }
+
+                for (let i = 1; i<=size; i++){
+                    let tempArray = [];
+                    for (let j = 1; j<=size; j++){
+                        tempArray.push('0');
+                        let div = document.createElement('div')
+                        div.setAttribute('data-square', counter)
+                        counter++;
+                        div.id = `block-${counter}`;
+                        div.classList.add('block');
+                        div.style.fontSize = `${60/size}vmin`;
+                        if (i == 1){
+                            div.classList.add('top');
+                        } else if (i == size){
+                            div.classList.add('bottom');
+                        }
+                        if (j == 1){
+                            div.classList.add('left');
+                        }else if (j == size){
+                            div.classList.add('right');
+                        }
+                        playArea.appendChild(div);
+                    }
+                    GameBoard.board.push(tempArray);
+                }
                 p1symbolerror.textContent = "";
                 p2symbolerror.textContent = "";
                 player1 = Player(p1name.value, p1symbol.value, true);
@@ -90,6 +124,7 @@ const mainGame = (function(){
 
     const startGame = (player1, player2) =>{
         playingGame = true;
+        squares = document.querySelectorAll('.block');
         squares.forEach((square)=>{
             square.addEventListener('click', ()=>{
                 if (player1Move && playingGame){
