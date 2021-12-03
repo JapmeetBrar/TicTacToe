@@ -55,6 +55,7 @@ const mainGame = (function(){
 
     const settupGame = () =>{
         popUp.style.display = "flex";
+        let sizeError = document.querySelector('.error-size');
         let p1name = document.querySelector('.p1-name-input')
         let p1symbol = document.querySelector('.p1-symbol-input')
         let p2name = document.querySelector('.p2-name-input')
@@ -64,58 +65,72 @@ const mainGame = (function(){
 
 
         startbtn.addEventListener('click', ()=>{
+            sizeError.textContent="";
+            p1symbolerror.textContent = "";
+            p2symbolerror.textContent = "";
+
             if (p1symbol.value.length === 1 && p2symbol.value.length === 1 && 
-                p1name.value.length >=1 && p2name.value.length >=1 ) {
-
+                p1name.value.length >=1 && p2name.value.length >=1) {
+                
                 let size = document.querySelector('.size').value;
-                let playArea = document.querySelector('.play-area');
-                playArea.style.gridTemplateColumns = `repeat(${size}, ${60/size}vmin)`;
-                playArea.style.gridTemplateRows = `repeat(${size}, ${60/size}vmin)`;
-                let counter = 0;
-                GameBoard.board = [];
-                while (playArea.firstChild) {
-                    playArea.removeChild(playArea.firstChild);
-                }
-
-                for (let i = 1; i<=size; i++){
-                    let tempArray = [];
-                    for (let j = 1; j<=size; j++){
-                        tempArray.push('0');
-                        let div = document.createElement('div')
-                        div.setAttribute('data-square', counter)
-                        counter++;
-                        div.id = `block-${counter}`;
-                        div.classList.add('block');
-                        div.style.fontSize = `${60/size}vmin`;
-                        if (i == 1){
-                            div.classList.add('top');
-                        } else if (i == size){
-                            div.classList.add('bottom');
-                        }
-                        if (j == 1){
-                            div.classList.add('left');
-                        }else if (j == size){
-                            div.classList.add('right');
-                        }
-                        playArea.appendChild(div);
+                
+                if (size >=2 && size <=10){
+                    let playArea = document.querySelector('.play-area');
+                    playArea.style.gridTemplateColumns = `repeat(${size}, ${60/size}vmin)`;
+                    playArea.style.gridTemplateRows = `repeat(${size}, ${60/size}vmin)`;
+                    let counter = 0;
+                    GameBoard.board = [];
+                    while (playArea.firstChild) {
+                        playArea.removeChild(playArea.firstChild);
                     }
-                    GameBoard.board.push(tempArray);
+    
+                    for (let i = 1; i<=size; i++){
+                        let tempArray = [];
+                        for (let j = 1; j<=size; j++){
+                            tempArray.push('0');
+                            let div = document.createElement('div')
+                            div.setAttribute('data-square', counter)
+                            counter++;
+                            div.id = `block-${counter}`;
+                            div.classList.add('block');
+                            div.style.fontSize = `${60/size}vmin`;
+                            if (i == 1){
+                                div.classList.add('top');
+                            } else if (i == size){
+                                div.classList.add('bottom');
+                            }
+                            if (j == 1){
+                                div.classList.add('left');
+                            }else if (j == size){
+                                div.classList.add('right');
+                            }
+                            playArea.appendChild(div);
+                        }
+                        GameBoard.board.push(tempArray);
+                    }
+                    p1symbolerror.textContent = "";
+                    p2symbolerror.textContent = "";
+                    sizeError.textContent = "";
+                    player1 = Player(p1name.value, p1symbol.value, true);
+                    player2 = Player(p2name.value, p2symbol.value, false);
+                    startGame(player1, player2);
+                    console.log({player1, player2})
+                    popUp.style.display = "none";
                 }
-                p1symbolerror.textContent = "";
-                p2symbolerror.textContent = "";
-                player1 = Player(p1name.value, p1symbol.value, true);
-                player2 = Player(p2name.value, p2symbol.value, false);
-                startGame(player1, player2);
-                console.log({player1, player2})
-                popUp.style.display = "none";
-            }else if (p1name.value.length == 0){
-                p1name.placeholder = "Enter a Name";
-            }else if (p1symbol.value.length !== 1){
-                p1symbolerror.textContent = "ONE CHARACTER ONLY";
-            }else if (p2name.value.length == 0){
-                p2name.placeholder = "jjEnter a Name";
+                if( size<2 || size>10){
+                    sizeError.textContent = "Enter a value between 2 and 10";
+                }
             }
-            else if (p2symbol.value.length !== 1){
+            if (p1name.value.length == 0){
+                p1name.placeholder = "Enter a Name";
+            }
+            if (p1symbol.value.length !== 1){
+                p1symbolerror.textContent = "ONE CHARACTER ONLY";
+            }
+            if (p2name.value.length == 0){
+                p2name.placeholder = "Enter a Name";
+            }
+            if (p2symbol.value.length !== 1){
                 p2symbolerror.textContent = "ONE CHARACTER ONLY";
             }
         })
